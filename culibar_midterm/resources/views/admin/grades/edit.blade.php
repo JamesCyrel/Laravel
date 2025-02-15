@@ -37,7 +37,7 @@
             </div>
             <div class="form-group">
                 <label for="grade">Grade</label>
-                <input type="number" step="0.1" class="form-control" id="grade" name="grade" value="{{ $grade->grade }}" required>
+                <input type="number" step="0.01" class="form-control" id="grade" name="grade" value="{{ $grade->grade }}" required>
             </div>
             <button type="submit" class="btn btn-primary">Update Grade</button>
         </form>

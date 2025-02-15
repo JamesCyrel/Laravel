@@ -30,13 +30,18 @@
                 <select class="form-control" id="subject_id" name="subject_id" required>
                     <option value="">Select Subject</option>
                     @foreach($subjects as $subject)
-                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                        @php
+                            $isGraded = $grades->where('student_id', old('student_id'))->pluck('subject_id')->toArray();
+                        @endphp
+                        <option value="{{ $subject->id }}" @if(in_array($subject->id, $isGraded)) disabled @endif>
+                            {{ $subject->name }}
+                        </option>
                     @endforeach
                 </select>
             </div>
             <div class="form-group">
                 <label for="grade">Grade</label>
-                <input type="number" step="0.1" class="form-control" id="grade" name="grade" value="{{ old('grade') }}" required>
+                <input type="number" step="0.01" class="form-control" id="grade" name="grade" value="{{ old('grade') }}" required>
             </div>
             <button type="submit" class="btn btn-primary">Add Grade</button>
         </form>

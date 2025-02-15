@@ -20,7 +20,9 @@ class GradeController extends Controller
     {
         $students = Student::all();
         $subjects = Subject::all();
-        return view('admin.grades.create', compact('students', 'subjects'));
+        $grades = Grade::all();
+
+        return view('admin.grades.create', compact('students', 'subjects', 'grades'));
     }
 
     public function store(Request $request)
@@ -31,8 +33,18 @@ class GradeController extends Controller
             'grade' => 'required|numeric|between:1.0,5.0',
         ]);
 
+        // Check if the student already has a grade for the selected subject
+        $existingGrade = Grade::where('student_id', $request->student_id)
+                              ->where('subject_id', $request->subject_id)
+                              ->first();
+
+        if ($existingGrade) {
+            return redirect()->back()->withErrors(['subject_id' => 'This student already has a grade for the selected subject.']);
+        }
+
         $data = $request->all();
         $data['subject_name'] = Subject::find($data['subject_id'])->name;
+        $data['grade'] = number_format($data['grade'], 2);
         $data['remark'] = $this->getRemark($data['grade']);
         $data['curriculum_evaluation'] = $data['remark'];
 
@@ -58,6 +70,7 @@ class GradeController extends Controller
 
         $data = $request->all();
         $data['subject_name'] = Subject::find($data['subject_id'])->name;
+        $data['grade'] = number_format($data['grade'], 2);
         $data['remark'] = $this->getRemark($data['grade']);
         $data['curriculum_evaluation'] = $data['remark'];
 

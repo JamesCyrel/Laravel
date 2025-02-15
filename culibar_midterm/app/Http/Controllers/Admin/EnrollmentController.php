@@ -20,7 +20,9 @@ class EnrollmentController extends Controller
     {
         $students = Student::all();
         $subjects = Subject::all();
-        return view('admin.enrollments.create', compact('students', 'subjects'));
+        $enrollments = Enrollment::all();
+
+        return view('admin.enrollments.create', compact('students', 'subjects', 'enrollments'));
     }
 
     public function store(Request $request)
@@ -29,6 +31,15 @@ class EnrollmentController extends Controller
             'student_id' => 'required|exists:students,id',
             'subject_id' => 'required|exists:subjects,id',
         ]);
+
+        // Check if the student is already enrolled in the selected subject
+        $existingEnrollment = Enrollment::where('student_id', $request->student_id)
+                                        ->where('subject_id', $request->subject_id)
+                                        ->first();
+
+        if ($existingEnrollment) {
+            return redirect()->back()->withErrors(['subject_id' => 'This student is already enrolled in the selected subject.']);
+        }
 
         Enrollment::create($request->all());
 

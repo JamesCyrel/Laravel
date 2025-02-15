@@ -22,7 +22,7 @@ return new class extends Migration
                 $table->string('subject_name')->after('subject_id');
             }
             if (!Schema::hasColumn('grades', 'grade')) {
-                $table->decimal('grade', 3, 1)->after('subject_name');
+                $table->decimal('grade', 3, 2)->after('subject_name');
             }
             if (!Schema::hasColumn('grades', 'remark')) {
                 $table->string('remark')->after('grade');
@@ -30,6 +30,7 @@ return new class extends Migration
             if (!Schema::hasColumn('grades', 'curriculum_evaluation')) {
                 $table->string('curriculum_evaluation')->after('remark');
             }
+            $table->unique(['student_id', 'subject_id']);
         });
     }
 
@@ -59,6 +60,7 @@ return new class extends Migration
             if (Schema::hasColumn('grades', 'curriculum_evaluation')) {
                 $table->dropColumn('curriculum_evaluation');
             }
+            $table->dropUnique(['student_id', 'subject_id']);
         });
     }
 };

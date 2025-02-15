@@ -30,7 +30,12 @@
                 <select class="form-control" id="subject_id" name="subject_id" required>
                     <option value="">Select Subject</option>
                     @foreach($subjects as $subject)
-                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                        @php
+                            $isEnrolled = $enrollments->where('subject_id', $subject->id)->pluck('student_id')->toArray();
+                        @endphp
+                        <option value="{{ $subject->id }}" @if(in_array(old('student_id'), $isEnrolled)) disabled @endif>
+                            {{ $subject->name }}
+                        </option>
                     @endforeach
                 </select>
             </div>
