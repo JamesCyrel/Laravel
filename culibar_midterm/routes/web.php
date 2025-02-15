@@ -6,7 +6,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\EnrollmentController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,9 +31,7 @@ Route::middleware('auth')->group(function () {
             return view('student.dashboard');
         })->name('student.dashboard');
     
-        Route::get('/admin/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
+        Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
         Route::get('/student/view-grades', function () {
             return view('student.view-grades');
