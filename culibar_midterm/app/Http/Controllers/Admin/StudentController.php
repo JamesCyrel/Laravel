@@ -32,6 +32,23 @@ class StudentController extends Controller
         return redirect()->route('admin.students')->with('success', 'Student created successfully.');
     }
 
+    public function edit(Student $student)
+    {
+        return view('admin.students.edit', compact('student'));
+    }
+
+    public function update(Request $request, Student $student)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:students,email,' . $student->id,
+        ]);
+
+        $student->update($request->all());
+
+        return redirect()->route('admin.students')->with('success', 'Student updated successfully.');
+    }
+
     public function destroy(Student $student)
     {
         $student->delete();
