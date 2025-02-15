@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\SubjectController;
-use App\Http\Controllers\GradeController;
-use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\SubjectController;
+use App\Http\Controllers\Admin\GradeController;
+use App\Http\Controllers\Admin\EnrollmentController;
 use App\Http\Controllers\Admin\AdminController;
 
 Route::get('/', function () {
@@ -15,10 +15,6 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/addStudent', function () {
-    return view('students.addStudent');
-})->name('addStudent');
 
 //profile routes
 Route::middleware('auth')->group(function () {
