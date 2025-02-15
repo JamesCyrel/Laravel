@@ -14,6 +14,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Student ID</th>
                     <th>Name</th>
                     <th>Email</th>
@@ -21,8 +22,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($students as $student)
+                @foreach($students as $index => $student)
                     <tr>
+                        <td>{{ $index + 1 }}</td>
                         <td>{{ $student->student_id }}</td>
                         <td>{{ $student->name }}</td>
                         <td>{{ $student->email }}</td>
