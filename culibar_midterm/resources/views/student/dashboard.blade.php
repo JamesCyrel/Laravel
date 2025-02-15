@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Instructor Dashboard</h1>
+    <h1>Student Dashboard</h1>
     <p>Welcome, {{ auth()->user()->name }}!</p>
     <!-- Add instructor-specific content here -->
 </div>

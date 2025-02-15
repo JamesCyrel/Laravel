@@ -40,19 +40,4 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-//Student Routes
-// Route::resource('/students', StudentController::class);
-
-
-//Subject Routes
-// Route::resource('/subjects', SubjectController::class);
-
-//Grade Routes
-// Route::get('/grades/gwa/{studentId}', [GradeController::class, 'computeGWA']);
-
-
-//Enrollment Routes
-// Route::post('/enrollments', [EnrollmentController::class, 'enroll']);
-
-
 require __DIR__.'/auth.php';

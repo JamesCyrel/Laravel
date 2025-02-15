@@ -30,7 +30,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href=" {{ route('dashboard')}}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ Auth::user()->role == 'admin' ? route('admin.dashboard') : route('student.dashboard') }}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -40,38 +40,48 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - dashboardboard -->
-            <li class="nav-item @if(request()->routeIs('dashboard')) active @endif">
-                <a class="nav-link" href="{{ route('dashboard') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>dashboard</span></a>
-            </li>
+            <!-- Nav Item - Dashboard -->
+            @if(Auth::user()->role == 'admin')
+                <!-- Nav Item - Admin Dashboard -->
+                <li class="nav-item @if(request()->routeIs('admin.dashboard')) active @endif">
+                    <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Admin Dashboard</span>
+                    </a>
+                </li>
 
-           
+                <!-- Nav Item - Add Student -->
+                <li class="nav-item @if(request()->routeIs('addStudent')) active @endif">
+                    <a class="nav-link" href="{{ route('addStudent') }}">
+                        <i class="fas fa-fw fa-user-plus"></i>
+                        <span>Add Student</span>
+                    </a>
+                </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+                <!-- Nav Item - Tables -->
+                <li class="nav-item @if(request()->routeIs('tables')) active @endif">
+                    <a class="nav-link" href="{{ route('tables') }}">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Tables</span>
+                    </a>
+                </li>
+            @else
+                <!-- Nav Item - Student Dashboard -->
+                <li class="nav-item @if(request()->routeIs('student.dashboard')) active @endif">
+                    <a class="nav-link" href="{{ route('student.dashboard') }}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Student Dashboard</span>
+                    </a>
+                </li>
 
-            <!-- Heading -->
-            
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            
-
-            <!-- Nav Item - Add Student -->
-            <li class="nav-item @if(request()->routeIs('addStudent')) active @endif">
-                <a class="nav-link" href="{{ route('addStudent') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Add Student</span>
-                </a>
-            </li>
-    
-            <!-- Nav Item - Tables -->
-            <li class="nav-item @if(request()->routeIs('tables')) active @endif">
-                <a class="nav-link" href="{{ route('tables') }}">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
+                <!-- Nav Item - Student Profile -->
+                <li class="nav-item @if(request()->routeIs('profile.edit')) active @endif">
+                    <a class="nav-link" href="{{ route('profile.edit') }}">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -80,8 +90,6 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
-            
 
         </ul>
         <!-- End of Sidebar -->
