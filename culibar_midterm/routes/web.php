@@ -33,9 +33,10 @@ Route::middleware('auth')->group(function () {
             return view('student.view-grades');
         })->name('student.view-grades');
 
-        Route::get('/admin/students', function () {
-            return view('admin.students');
-        })->name('admin.students');
+        Route::get('/admin/students', [StudentController::class, 'index'])->name('admin.students');
+        Route::get('/admin/students/create', [StudentController::class, 'create'])->name('admin.students.create');
+        Route::post('/admin/students', [StudentController::class, 'store'])->name('admin.students.store');
+        Route::delete('/admin/students/{student}', [StudentController::class, 'destroy'])->name('admin.students.destroy');
 
         Route::get('/admin/subjects', function () {
             return view('admin.subjects');

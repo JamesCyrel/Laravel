@@ -38,4 +38,3 @@ class StudentController extends Controller
         return redirect()->route('admin.students')->with('success', 'Student deleted successfully.');
     }
 }
-
