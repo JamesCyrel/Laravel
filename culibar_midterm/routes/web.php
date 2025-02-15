@@ -47,13 +47,19 @@ Route::middleware('auth')->group(function () {
         Route::patch('/admin/subjects/{subject}', [SubjectController::class, 'update'])->name('admin.subjects.update');
         Route::delete('/admin/subjects/{subject}', [SubjectController::class, 'destroy'])->name('admin.subjects.destroy');
 
-        Route::get('/admin/enrollments', function () {
-            return view('admin.enrollments');
-        })->name('admin.enrollments');
+        Route::get('/admin/enrollments', [EnrollmentController::class, 'index'])->name('admin.enrollments');
+        Route::get('/admin/enrollments/create', [EnrollmentController::class, 'create'])->name('admin.enrollments.create');
+        Route::post('/admin/enrollments', [EnrollmentController::class, 'store'])->name('admin.enrollments.store');
+        Route::get('/admin/enrollments/{enrollment}/edit', [EnrollmentController::class, 'edit'])->name('admin.enrollments.edit');
+        Route::patch('/admin/enrollments/{enrollment}', [EnrollmentController::class, 'update'])->name('admin.enrollments.update');
+        Route::delete('/admin/enrollments/{enrollment}', [EnrollmentController::class, 'destroy'])->name('admin.enrollments.destroy');
 
-        Route::get('/admin/grades', function () {
-            return view('admin.grades');
-        })->name('admin.grades');
+        Route::get('/admin/grades', [GradeController::class, 'index'])->name('admin.grades');
+        Route::get('/admin/grades/create', [GradeController::class, 'create'])->name('admin.grades.create');
+        Route::post('/admin/grades', [GradeController::class, 'store'])->name('admin.grades.store');
+        Route::get('/admin/grades/{grade}/edit', [GradeController::class, 'edit'])->name('admin.grades.edit');
+        Route::patch('/admin/grades/{grade}', [GradeController::class, 'update'])->name('admin.grades.update');
+        Route::delete('/admin/grades/{grade}', [GradeController::class, 'destroy'])->name('admin.grades.destroy');
     });
 });
 
