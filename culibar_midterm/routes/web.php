@@ -40,9 +40,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/admin/students/{student}', [StudentController::class, 'update'])->name('admin.students.update');
         Route::delete('/admin/students/{student}', [StudentController::class, 'destroy'])->name('admin.students.destroy');
 
-        Route::get('/admin/subjects', function () {
-            return view('admin.subjects');
-        })->name('admin.subjects');
+        Route::get('/admin/subjects', [SubjectController::class, 'index'])->name('admin.subjects');
+        Route::get('/admin/subjects/create', [SubjectController::class, 'create'])->name('admin.subjects.create');
+        Route::post('/admin/subjects', [SubjectController::class, 'store'])->name('admin.subjects.store');
+        Route::get('/admin/subjects/{subject}/edit', [SubjectController::class, 'edit'])->name('admin.subjects.edit');
+        Route::patch('/admin/subjects/{subject}', [SubjectController::class, 'update'])->name('admin.subjects.update');
+        Route::delete('/admin/subjects/{subject}', [SubjectController::class, 'destroy'])->name('admin.subjects.destroy');
 
         Route::get('/admin/enrollments', function () {
             return view('admin.enrollments');
