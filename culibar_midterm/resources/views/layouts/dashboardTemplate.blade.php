@@ -50,15 +50,38 @@
                     </a>
                 </li>
 
-                
-
-                <!-- Nav Item - Tables -->
-                <li class="nav-item @if(request()->routeIs('tables')) active @endif">
-                    <a class="nav-link" href="{{ route('tables') }}">
-                        <i class="fas fa-fw fa-table"></i>
-                        <span>Tables</span>
+                <!-- Nav Item - Students -->
+                <li class="nav-item @if(request()->routeIs('admin.students')) active @endif">
+                    <a class="nav-link" href="{{ route('admin.students') }}">
+                        <i class="fas fa-fw fa-users"></i>
+                        <span>Students</span>
                     </a>
                 </li>
+
+                <!-- Nav Item - Subjects -->
+                <li class="nav-item @if(request()->routeIs('admin.subjects')) active @endif">
+                    <a class="nav-link" href="{{ route('admin.subjects') }}">
+                        <i class="fas fa-fw fa-book"></i>
+                        <span>Subjects</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - Enrollments -->
+                <li class="nav-item @if(request()->routeIs('admin.enrollments')) active @endif">
+                    <a class="nav-link" href="{{ route('admin.enrollments') }}">
+                        <i class="fas fa-fw fa-clipboard-list"></i>
+                        <span>Enrollments</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - Grades -->
+                <li class="nav-item @if(request()->routeIs('admin.grades')) active @endif">
+                    <a class="nav-link" href="{{ route('admin.grades') }}">
+                        <i class="fas fa-fw fa-graduation-cap"></i>
+                        <span>Grades</span>
+                    </a>
+                </li>
+
             @else
                 <!-- Nav Item - Student Dashboard -->
                 <li class="nav-item @if(request()->routeIs('student.dashboard')) active @endif">
@@ -73,6 +96,14 @@
                     <a class="nav-link" href="{{ route('profile.edit') }}">
                         <i class="fas fa-fw fa-user"></i>
                         <span>Profile</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - View Grades -->
+                <li class="nav-item @if(request()->routeIs('student.view-grades')) active @endif">
+                    <a class="nav-link" href="{{ route('student.view-grades') }}">
+                        <i class="fas fa-fw fa-graduation-cap"></i>
+                        <span>View Grades</span>
                     </a>
                 </li>
             @endif
@@ -145,12 +176,7 @@
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
+                            
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
@@ -196,12 +222,6 @@
 
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
