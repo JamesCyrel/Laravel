@@ -50,13 +50,7 @@
                     </a>
                 </li>
 
-                <!-- Nav Item - Add Student -->
-                <li class="nav-item @if(request()->routeIs('addStudent')) active @endif">
-                    <a class="nav-link" href="{{ route('addStudent') }}">
-                        <i class="fas fa-fw fa-user-plus"></i>
-                        <span>Add Student</span>
-                    </a>
-                </li>
+                
 
                 <!-- Nav Item - Tables -->
                 <li class="nav-item @if(request()->routeIs('tables')) active @endif">
