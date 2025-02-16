@@ -64,7 +64,15 @@ class StudentController extends Controller
 
     public function destroy(Student $student)
     {
+        // Delete related grades
+        $student->grades()->delete();
+
+        // Delete related enrollments
+        $student->enrollments()->delete();
+
+        // Delete the student
         $student->delete();
+
         return redirect()->route('admin.students')->with('success', 'Student deleted successfully.');
     }
 }
