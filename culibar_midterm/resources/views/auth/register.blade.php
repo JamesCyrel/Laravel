@@ -40,7 +40,7 @@
                                     <select name="role" class="form-control rounded-pill px-3 py-2" style="height: 50px; font-size: 0.8rem;" required>
                                         <option value="" disabled selected>Select Role</option>
                                         <option value="student">Student</option>
-                                        <option value="admin">admin</option>
+                                        <option value="admin">Admin</option>
                                     </select>
                                     @error('role') <span class="text-danger text-sm">{{ $message }}</span> @enderror
                                 </div>
