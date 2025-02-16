@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Grade;
 use App\Models\Student;
 use App\Models\Subject;
+use App\Models\Enrollment;
 
 class GradeController extends Controller
 {
@@ -32,6 +33,15 @@ class GradeController extends Controller
             'subject_id' => 'required|exists:subjects,id',
             'grade' => 'required|numeric|between:1.0,5.0',
         ]);
+
+        // Check if the student is enrolled in the selected subject
+        $enrollment = Enrollment::where('student_id', $request->student_id)
+                                ->where('subject_id', $request->subject_id)
+                                ->first();
+
+        if (!$enrollment) {
+            return redirect()->back()->withErrors(['subject_id' => 'The student is not enrolled in the selected subject.']);
+        }
 
         // Check if the student already has a grade for the selected subject
         $existingGrade = Grade::where('student_id', $request->student_id)
