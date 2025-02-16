@@ -15,6 +15,11 @@
                 </tr>
             </thead>
             <tbody>
+                @if($grades->isEmpty())
+                    <tr>
+                        <td colspan="4">No grades available.</td>
+                    </tr>
+                @endif
                 @foreach($grades as $grade)
                     <tr>
                         <td>{{ $grade->subject->name }}</td>
