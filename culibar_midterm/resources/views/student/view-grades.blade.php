@@ -10,6 +10,8 @@
                 <tr>
                     <th>Subject</th>
                     <th>Grade</th>
+                    <th>Remark</th>
+                    <th>Curriculum Evaluation</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,6 +19,8 @@
                     <tr>
                         <td>{{ $grade->subject->name }}</td>
                         <td>{{ $grade->grade }}</td>
+                        <td>{{ $grade->remark }}</td>
+                        <td>{{ $grade->curriculum_evaluation }}</td>
                     </tr>
                 @endforeach
             </tbody>
