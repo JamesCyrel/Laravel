@@ -22,13 +22,25 @@
             </div>
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
+                <select class="form-control" id="name" name="name" required>
+                    <option value="">Select Student</option>
+                    @foreach($users as $user)
+                        <option value="{{ $user->name }}" data-email="{{ $user->email }}">{{ $user->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
+                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required readonly>
             </div>
             <button type="submit" class="btn btn-primary">Add Student</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById('name').addEventListener('change', function() {
+            var email = this.options[this.selectedIndex].getAttribute('data-email');
+            document.getElementById('email').value = email;
+        });
+    </script>
 @endsection

@@ -53,6 +53,7 @@ class GradeController extends Controller
         }
 
         $data = $request->all();
+        $data['student_name'] = Student::find($data['student_id'])->name;
         $data['subject_name'] = Subject::find($data['subject_id'])->name;
         $data['grade'] = number_format($data['grade'], 2);
         $data['remark'] = $this->getRemark($data['grade']);
@@ -98,7 +99,10 @@ class GradeController extends Controller
     public function viewGrades()
     {
         $studentId = auth()->user()->id;
-        $grades = Grade::where('student_id', $studentId)->with('subject')->get();
+        $grades = Grade::where('student_id', $studentId)
+                       ->with(['subject', 'student'])
+                       ->get();
+
         return view('student.view-grades', compact('grades'));
     }
 

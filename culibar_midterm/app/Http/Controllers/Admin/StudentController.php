@@ -25,7 +25,18 @@ class StudentController extends Controller
     {
         $request->validate([
             'student_id' => 'required|unique:students',
-            'name' => 'required',
+            'name' => [
+                'required',
+                function ($attribute, $value, $fail) use ($request) {
+                    $user = User::where('name', $value)
+                                ->where('email', $request->email)
+                                ->where('role', 'student')
+                                ->first();
+                    if (!$user) {
+                        $fail('The name and email must match a registered student user.');
+                    }
+                },
+            ],
             'email' => 'required|email|unique:students',
         ]);
 
