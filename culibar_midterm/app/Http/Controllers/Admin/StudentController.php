@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\User;
 
 class StudentController extends Controller
 {
@@ -16,7 +17,8 @@ class StudentController extends Controller
 
     public function create()
     {
-        return view('admin.students.create');
+        $users = User::where('role', 'student')->get();
+        return view('admin.students.create', compact('users'));
     }
 
     public function store(Request $request)
