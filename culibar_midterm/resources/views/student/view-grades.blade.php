@@ -13,19 +13,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Mathematics</td>
-                    <td>A</td>
-                </tr>
-                <tr>
-                    <td>Science</td>
-                    <td>B+</td>
-                </tr>
-                <tr>
-                    <td>History</td>
-                    <td>A-</td>
-                </tr>
-                <!-- Add more static grades as needed -->
+                @foreach($grades as $grade)
+                    <tr>
+                        <td>{{ $grade->subject->name }}</td>
+                        <td>{{ $grade->grade }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

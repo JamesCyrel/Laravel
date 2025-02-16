@@ -29,9 +29,7 @@ Route::middleware('auth')->group(function () {
     
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-        Route::get('/student/view-grades', function () {
-            return view('student.view-grades');
-        })->name('student.view-grades');
+        Route::get('/student/view-grades', [GradeController::class, 'viewGrades'])->name('student.view-grades');
 
         Route::get('/admin/students', [StudentController::class, 'index'])->name('admin.students');
         Route::get('/admin/students/create', [StudentController::class, 'create'])->name('admin.students.create');

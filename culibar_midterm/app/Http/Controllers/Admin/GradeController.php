@@ -85,6 +85,13 @@ class GradeController extends Controller
         return redirect()->route('admin.grades')->with('success', 'Grade deleted successfully.');
     }
 
+    public function viewGrades()
+    {
+        $studentId = auth()->user()->id;
+        $grades = Grade::where('student_id', $studentId)->with('subject')->get();
+        return view('student.view-grades', compact('grades'));
+    }
+
     private function getRemark($grade)
     {
         if ($grade >= 1.0 && $grade <= 3.0) {
