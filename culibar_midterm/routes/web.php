@@ -8,56 +8,64 @@ use App\Http\Controllers\Admin\GradeController;
 use App\Http\Controllers\Admin\EnrollmentController;
 use App\Http\Controllers\Admin\AdminController;
 
+
+// Public routes
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-//profile routes
-Route::middleware('auth')->group(function () {
+// Common authenticated routes
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::middleware(['auth', 'verified'])->group(function () {
+    // Student routes
+    Route::middleware(['role:student'])->group(function () {
         Route::get('/student/dashboard', function () {
             return view('student.dashboard');
         })->name('student.dashboard');
-    
-        Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-
         Route::get('/student/view-grades', [GradeController::class, 'viewGrades'])->name('student.view-grades');
+    });
 
-        Route::get('/admin/students', [StudentController::class, 'index'])->name('admin.students');
-        Route::get('/admin/students/create', [StudentController::class, 'create'])->name('admin.students.create');
-        Route::post('/admin/students', [StudentController::class, 'store'])->name('admin.students.store');
-        Route::get('/admin/students/{student}/edit', [StudentController::class, 'edit'])->name('admin.students.edit');
-        Route::patch('/admin/students/{student}', [StudentController::class, 'update'])->name('admin.students.update');
-        Route::delete('/admin/students/{student}', [StudentController::class, 'destroy'])->name('admin.students.destroy');
+    // Admin routes
+    Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        
+        // Students management
+        Route::get('/students', [StudentController::class, 'index'])->name('students');
+        Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
+        Route::post('/students', [StudentController::class, 'store'])->name('students.store');
+        Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->name('students.edit');
+        Route::patch('/students/{student}', [StudentController::class, 'update'])->name('students.update');
+        Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('students.destroy');
 
-        Route::get('/admin/subjects', [SubjectController::class, 'index'])->name('admin.subjects');
-        Route::get('/admin/subjects/create', [SubjectController::class, 'create'])->name('admin.subjects.create');
-        Route::post('/admin/subjects', [SubjectController::class, 'store'])->name('admin.subjects.store');
-        Route::get('/admin/subjects/{subject}/edit', [SubjectController::class, 'edit'])->name('admin.subjects.edit');
-        Route::patch('/admin/subjects/{subject}', [SubjectController::class, 'update'])->name('admin.subjects.update');
-        Route::delete('/admin/subjects/{subject}', [SubjectController::class, 'destroy'])->name('admin.subjects.destroy');
+        // Subjects management
+        Route::get('/subjects', [SubjectController::class, 'index'])->name('subjects');
+        Route::get('/subjects/create', [SubjectController::class, 'create'])->name('subjects.create');
+        Route::post('/subjects', [SubjectController::class, 'store'])->name('subjects.store');
+        Route::get('/subjects/{subject}/edit', [SubjectController::class, 'edit'])->name('subjects.edit');
+        Route::patch('/subjects/{subject}', [SubjectController::class, 'update'])->name('subjects.update');
+        Route::delete('/subjects/{subject}', [SubjectController::class, 'destroy'])->name('subjects.destroy');
 
-        Route::get('/admin/enrollments', [EnrollmentController::class, 'index'])->name('admin.enrollments');
-        Route::get('/admin/enrollments/create', [EnrollmentController::class, 'create'])->name('admin.enrollments.create');
-        Route::post('/admin/enrollments', [EnrollmentController::class, 'store'])->name('admin.enrollments.store');
-        Route::get('/admin/enrollments/{enrollment}/edit', [EnrollmentController::class, 'edit'])->name('admin.enrollments.edit');
-        Route::patch('/admin/enrollments/{enrollment}', [EnrollmentController::class, 'update'])->name('admin.enrollments.update');
-        Route::delete('/admin/enrollments/{enrollment}', [EnrollmentController::class, 'destroy'])->name('admin.enrollments.destroy');
+        // Enrollments management
+        Route::get('/enrollments', [EnrollmentController::class, 'index'])->name('enrollments');
+        Route::get('/enrollments/create', [EnrollmentController::class, 'create'])->name('enrollments.create');
+        Route::post('/enrollments', [EnrollmentController::class, 'store'])->name('enrollments.store');
+        Route::get('/enrollments/{enrollment}/edit', [EnrollmentController::class, 'edit'])->name('enrollments.edit');
+        Route::patch('/enrollments/{enrollment}', [EnrollmentController::class, 'update'])->name('enrollments.update');
+        Route::delete('/enrollments/{enrollment}', [EnrollmentController::class, 'destroy'])->name('enrollments.destroy');
 
-        Route::get('/admin/grades', [GradeController::class, 'index'])->name('admin.grades');
-        Route::get('/admin/grades/create', [GradeController::class, 'create'])->name('admin.grades.create');
-        Route::post('/admin/grades', [GradeController::class, 'store'])->name('admin.grades.store');
-        Route::get('/admin/grades/{grade}/edit', [GradeController::class, 'edit'])->name('admin.grades.edit');
-        Route::patch('/admin/grades/{grade}', [GradeController::class, 'update'])->name('admin.grades.update');
-        Route::delete('/admin/grades/{grade}', [GradeController::class, 'destroy'])->name('admin.grades.destroy');
+        // Grades management
+        Route::get('/grades', [GradeController::class, 'index'])->name('grades');
+        Route::get('/grades/create', [GradeController::class, 'create'])->name('grades.create');
+        Route::post('/grades', [GradeController::class, 'store'])->name('grades.store');
+        Route::get('/grades/{grade}/edit', [GradeController::class, 'edit'])->name('grades.edit');
+        Route::patch('/grades/{grade}', [GradeController::class, 'update'])->name('grades.update');
+        Route::delete('/grades/{grade}', [GradeController::class, 'destroy'])->name('grades.destroy');
     });
 });
 
