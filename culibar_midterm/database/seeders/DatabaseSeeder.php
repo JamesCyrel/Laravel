@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             'student_id' => 100000,
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'course' => 'BSIT',
         ]);
     }
 }

@@ -15,6 +15,8 @@
             <thead>
                 <tr>
                     <th>Student Name</th>
+                    <th>Course</th>
+                    <th>Semester</th>
                     <th>Subject</th>
                     <th>Grade</th>
                     <th>Units</th>
@@ -25,8 +27,15 @@
             </thead>
             <tbody>
                 @foreach($grades as $grade)
+                    @php
+                        $enrollment = App\Models\Enrollment::where('student_id', $grade->student_id)
+                            ->where('subject_id', $grade->subject_id)
+                            ->first();
+                    @endphp
                     <tr>
                         <td>{{ $grade->student->name }}</td>
+                        <td>{{ $enrollment ? $enrollment->course : $grade->student->course }}</td>
+                        <td>{{ $enrollment ? $enrollment->semester : '-' }}</td>
                         <td>{{ $grade->subject->name }}</td>
                         <td>{{ $grade->grade }}</td>
                         <td>{{ $grade->subject->units }}</td>

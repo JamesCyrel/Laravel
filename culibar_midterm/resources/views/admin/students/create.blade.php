@@ -33,6 +33,16 @@
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required readonly>
             </div>
+            <div class="form-group">
+                <label for="course">Course</label>
+                <select class="form-control" id="course" name="course" required>
+                    <option value="">Select Course</option>
+                    <option value="BSIT">Bachelor of Science in Information Technology</option>
+                    <option value="BSCS">Bachelor of Science in Computer Science</option>
+                    <option value="BSIS">Bachelor of Science in Information Systems</option>
+                    <option value="BSEMC">Bachelor of Science in Entertainment and Multimedia Computing</option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Add Student</button>
         </form>
     </div>

@@ -38,6 +38,7 @@ class StudentController extends Controller
                 },
             ],
             'email' => 'required|email|unique:students',
+            'course' => 'required|string',
         ]);
 
         Student::create($request->all());
@@ -55,6 +56,7 @@ class StudentController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:students,email,' . $student->id,
+            'course' => 'required|string',
         ]);
 
         $student->update($request->all());

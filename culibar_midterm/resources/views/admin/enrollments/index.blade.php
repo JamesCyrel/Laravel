@@ -15,6 +15,8 @@
             <thead>
                 <tr>
                     <th>Student Name</th>
+                    <th>Course</th>
+                    <th>Semester</th>
                     <th>Subject</th>
                     <th>Actions</th>
                 </tr>
@@ -23,6 +25,8 @@
                 @foreach($enrollments as $enrollment)
                     <tr>
                         <td>{{ $enrollment->student->name }}</td>
+                        <td>{{ $enrollment->course }}</td>
+                        <td>{{ $enrollment->semester }}</td>
                         <td>{{ $enrollment->subject->name }}</td>
                         <td>
                             <a href="{{ route('admin.enrollments.edit', $enrollment) }}" class="btn btn-warning">Edit</a>

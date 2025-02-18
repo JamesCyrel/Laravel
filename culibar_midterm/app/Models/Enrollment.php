@@ -9,7 +9,12 @@ class Enrollment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['student_id', 'subject_id'];
+    protected $fillable = [
+        'student_id', 
+        'subject_id',
+        'course',
+        'semester',
+    ];
 
     public function student()
     {
