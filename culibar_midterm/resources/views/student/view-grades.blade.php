@@ -7,10 +7,18 @@
         <h5>Name: {{ auth()->user()->name }}</h5>
         @php
             $student = App\Models\Student::where('email', auth()->user()->email)->first();
-            $enrollment = App\Models\Enrollment::where('student_id', $student->id)->latest()->first();
         @endphp
-        <h5>Course: {{ $student->course }}</h5>
-        <h5>Semester: {{ $enrollment ? $enrollment->semester : '-' }}</h5>
+
+        @if($student)
+            @php
+                $enrollment = App\Models\Enrollment::where('student_id', $student->id)->latest()->first();
+            @endphp
+            <h5>Course: {{ $student->course }}</h5>
+            <h5>Semester: {{ $enrollment ? $enrollment->semester : '-' }}</h5>
+        @else
+            <h5>Course: Not found</h5>
+            <h5>Semester: -</h5>
+        @endif
         
         <h1 class="my-4">Grades</h1>
         <table class="table table-bordered">
@@ -23,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                @if($grades->isEmpty())
+                @if(!$student || $grades->isEmpty())
                     <tr>
                         <td colspan="4">No grades available.</td>
                     </tr>

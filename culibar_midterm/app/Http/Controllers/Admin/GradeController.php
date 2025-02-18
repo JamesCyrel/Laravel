@@ -98,8 +98,13 @@ class GradeController extends Controller
 
     public function viewGrades()
     {
-        $studentId = auth()->user()->id;
-        $grades = Grade::where('student_id', $studentId)
+        $student = Student::where('email', auth()->user()->email)->first();
+        
+        if (!$student) {
+            return view('student.view-grades', ['grades' => collect([])]);
+        }
+
+        $grades = Grade::where('student_id', $student->id)
                        ->with(['subject', 'student'])
                        ->get();
 
