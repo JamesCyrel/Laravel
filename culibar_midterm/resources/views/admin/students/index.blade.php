@@ -19,6 +19,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Course</th>
+                    <th>Year Level</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -30,6 +31,7 @@
                         <td>{{ $student->name }}</td>
                         <td>{{ $student->email }}</td>
                         <td>{{ $student->course }}</td>
+                        <td>{{ $student->year_level }}</td>
                         <td>
                             <a href="{{ route('admin.students.edit', $student) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('admin.students.destroy', $student) }}" method="POST" style="display:inline;">

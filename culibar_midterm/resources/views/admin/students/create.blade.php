@@ -43,6 +43,17 @@
                     <option value="BSEMC">Bachelor of Science in Entertainment and Multimedia Computing</option>
                 </select>
             </div>
+            <div class="form-group">
+                <label for="year_level">Year Level</label>
+                <select class="form-control" id="year_level" name="year_level" required>
+                    <option value="">Select Year Level</option>
+                    <option value="1st Year">1st Year</option>
+                    <option value="2nd Year">2nd Year</option>
+                    <option value="3rd Year">3rd Year</option>
+                    <option value="4th Year">4th Year</option>
+                    <option value="5th Year">5th Year</option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Add Student</button>
         </form>
     </div>

@@ -39,6 +39,17 @@
                     <option value="BSEMC" {{ $student->course === 'BSEMC' ? 'selected' : '' }}>Bachelor of Science in Entertainment and Multimedia Computing</option>
                 </select>
             </div>
+            <div class="form-group">
+                <label for="year_level">Year Level</label>
+                <select class="form-control" id="year_level" name="year_level" required>
+                    <option value="">Select Year Level</option>
+                    <option value="1st Year" {{ $student->year_level === '1st Year' ? 'selected' : '' }}>1st Year</option>
+                    <option value="2nd Year" {{ $student->year_level === '2nd Year' ? 'selected' : '' }}>2nd Year</option>
+                    <option value="3rd Year" {{ $student->year_level === '3rd Year' ? 'selected' : '' }}>3rd Year</option>
+                    <option value="4th Year" {{ $student->year_level === '4th Year' ? 'selected' : '' }}>4th Year</option>
+                    <option value="5th Year" {{ $student->year_level === '5th Year' ? 'selected' : '' }}>5th Year</option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Update Student</button>
         </form>
     </div>

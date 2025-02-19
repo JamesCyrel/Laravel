@@ -19,13 +19,13 @@ class StudentFactory extends Factory
      */
     public function definition(): array
     {
-        $courses = ['BSIT', 'BSCS', 'BSIS', 'BSEMC'];
-        
         return [
             'student_id' => $this->faker->unique()->numberBetween(1, 999999),
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'course' => $this->faker->randomElement($courses),
+            'year_level' => $this->faker->randomElement(['1st Year', '2nd Year', '3rd Year', '4th Year']),
+            'course' => $this->faker->randomElement(['BSIT', 'BSCS', 'BSIS', 'BSEMC']),
+            
         ];
     }
 }

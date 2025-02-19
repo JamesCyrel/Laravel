@@ -14,9 +14,11 @@
                 $enrollment = App\Models\Enrollment::where('student_id', $student->id)->latest()->first();
             @endphp
             <h5>Course: {{ $student->course }}</h5>
+            <h5>Year Level: {{ $student->year_level }}</h5>
             <h5>Semester: {{ $enrollment ? $enrollment->semester : '-' }}</h5>
         @else
             <h5>Course: Not found</h5>
+            <h5>Year Level: -</h5>
             <h5>Semester: -</h5>
         @endif
         

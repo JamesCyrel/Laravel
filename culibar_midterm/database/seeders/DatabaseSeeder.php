@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
             'course' => 'BSIT',
+            'year_level' => '1st Year',
         ]);
     }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('student_id')->unique();
             $table->string('name');
+            $table->string('year_level');
             $table->string('email')->unique();
             $table->timestamps();
         });
