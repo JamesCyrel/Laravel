@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\AdminController;
 
 // Public routes
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 // Common authenticated routes
