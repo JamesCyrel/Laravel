@@ -9,9 +9,15 @@ use App\Models\User;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::all();
+        $query = $request->input('search');
+        $students = Student::when($query, function ($queryBuilder) use ($query) {
+            return $queryBuilder->where('student_id', 'like', "%{$query}%")
+                ->orWhere('name', 'like', "%{$query}%")
+                ->orWhere('email', 'like', "%{$query}%");
+        })->get();
+
         return view('admin.students.index', compact('students'));
     }
 
