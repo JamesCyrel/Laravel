@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\GradeController;
 use App\Http\Controllers\Admin\EnrollmentController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Student\StudentDashboardController;
 
 
 // Public routes
@@ -25,9 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Student routes
     Route::middleware(['role:student'])->group(function () {
-        Route::get('/student/dashboard', function () {
-            return view('student.dashboard');
-        })->name('student.dashboard');
+        Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
         Route::get('/student/view-grades', [GradeController::class, 'viewGrades'])->name('student.view-grades');
     });
 
