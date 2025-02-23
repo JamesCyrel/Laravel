@@ -101,7 +101,8 @@
                                             {{ $grade->remark }}
                                         </span>
                                     </td>
-                                    <td class="text-center">{{ $grade->curriculum_evaluation }}</td>
+                                    <td class="text-center">
+                                        <span class="badge badge-{{ $grade->remark === 'Passed' ? 'success' : 'danger' }}">{{ $grade->curriculum_evaluation }}</span></td>
                                 </tr>
                             @endforeach
                         </tbody>
