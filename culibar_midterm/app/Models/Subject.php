@@ -14,4 +14,9 @@ class Subject extends Model
         'subject_code',
         'units',
     ];
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
 }
