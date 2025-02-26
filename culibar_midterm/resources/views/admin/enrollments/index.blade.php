@@ -37,11 +37,15 @@
                                     <td>{{ $enrollment->subject->name }}</td>
                                     <td>
                                         <a href="{{ route('admin.enrollments.edit', $enrollment) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('admin.enrollments.destroy', $enrollment) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
+                                        @if($enrollment->student->grades->isEmpty())
+                                            <form action="{{ route('admin.enrollments.destroy', $enrollment) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        @else
+                                            <button class="btn btn-danger btn-sm" disabled title="Cannot delete enrollment with existing grades">Delete</button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
