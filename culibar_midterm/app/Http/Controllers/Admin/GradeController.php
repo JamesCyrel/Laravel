@@ -8,6 +8,8 @@ use App\Models\Grade;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Enrollment;
+use App\Http\Requests\Admin\StoreGradeRequest;
+use App\Http\Requests\Admin\UpdateGradeRequest;
 
 class GradeController extends Controller
 {
@@ -26,14 +28,8 @@ class GradeController extends Controller
         return view('admin.grades.create', compact('students', 'subjects', 'grades'));
     }
 
-    public function store(Request $request)
+    public function store(StoreGradeRequest $request)
     {
-        $request->validate([
-            'student_id' => 'required|exists:students,id',
-            'subject_id' => 'required|exists:subjects,id',
-            'grade' => 'required|numeric|between:1.0,5.0',
-        ]);
-
         // Check if the student is enrolled in the selected subject
         $enrollment = Enrollment::where('student_id', $request->student_id)
                                 ->where('subject_id', $request->subject_id)
@@ -52,7 +48,7 @@ class GradeController extends Controller
             return redirect()->back()->withErrors(['subject_id' => 'This student already has a grade for the selected subject.']);
         }
 
-        $data = $request->all();
+        $data = $request->validated();
         $data['student_name'] = Student::find($data['student_id'])->name;
         $data['subject_name'] = Subject::find($data['subject_id'])->name;
         $data['grade'] = number_format($data['grade'], 2);
@@ -71,15 +67,9 @@ class GradeController extends Controller
         return view('admin.grades.edit', compact('grade', 'students', 'subjects'));
     }
 
-    public function update(Request $request, Grade $grade)
+    public function update(UpdateGradeRequest $request, Grade $grade)
     {
-        $request->validate([
-            'student_id' => 'required|exists:students,id',
-            'subject_id' => 'required|exists:subjects,id',
-            'grade' => 'required|numeric|between:1.0,5.0',
-        ]);
-
-        $data = $request->all();
+        $data = $request->validated();
         $data['subject_name'] = Subject::find($data['subject_id'])->name;
         $data['grade'] = number_format($data['grade'], 2);
         $data['remark'] = $this->getRemark($data['grade']);
