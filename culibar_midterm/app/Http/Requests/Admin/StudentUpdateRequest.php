@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Student;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -17,6 +17,7 @@ class StudentUpdateRequest extends FormRequest
             'name' => 'required',
             'email' => 'required|email|unique:students,email,' . $this->route('student')->id,
             'course' => 'required|string',
+            'year_level' => 'required|string',
         ];
     }
 }
