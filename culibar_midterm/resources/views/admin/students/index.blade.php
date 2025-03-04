@@ -57,53 +57,59 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($students as $index => $student)
+                        @if($students->isEmpty())
                             <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>
-                                    <span class="font-weight-bold">{{ $student->student_id }}</span>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="rounded-circle bg-primary text-white p-2 mr-2" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
-                                            {{ strtoupper(substr($student->name, 0, 1)) }}
+                                <td colspan="7" class="text-center">No students found.</td>
+                            </tr>
+                        @else
+                            @foreach($students as $index => $student)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>
+                                        <span class="font-weight-bold">{{ $student->student_id }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="rounded-circle bg-primary text-white p-2 mr-2" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
+                                                {{ strtoupper(substr($student->name, 0, 1)) }}
+                                            </div>
+                                            {{ $student->name }}
                                         </div>
-                                        {{ $student->name }}
-                                    </div>
-                                </td>
-                                <td>{{ $student->email }}</td>
-                                <td>
-                                    <span class="badge badge-info">{{ $student->course }}</span>
-                                </td>
-                                <td>
-                                    <span class="badge badge-success">{{ $student->year_level }} Year</span>
-                                </td>
-                                <td class="text-center">
-                                    <a href="{{ route('admin.students.edit', $student) }}" 
-                                       class="btn btn-warning btn-sm mr-1">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    @if($student->grades->isEmpty())
-                                        <form action="{{ route('admin.students.destroy', $student) }}" 
-                                              method="POST" 
-                                              style="display:inline;"
-                                              onsubmit="return confirm('Are you sure you want to delete this student?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">
+                                    </td>
+                                    <td>{{ $student->email }}</td>
+                                    <td>
+                                        <span class="badge badge-info">{{ $student->course }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-success">{{ $student->year_level }} Year</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('admin.students.edit', $student) }}" 
+                                           class="btn btn-warning btn-sm mr-1">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        @if($student->grades->isEmpty())
+                                            <form action="{{ route('admin.students.destroy', $student) }}" 
+                                                  method="POST" 
+                                                  style="display:inline;"
+                                                  onsubmit="return confirm('Are you sure you want to delete this student?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        @else
+                                            <button class="btn btn-danger btn-sm" 
+                                                    disabled 
+                                                    title="Cannot delete student with existing grades">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                        </form>
-                                    @else
-                                        <button class="btn btn-danger btn-sm" 
-                                                disabled 
-                                                title="Cannot delete student with existing grades">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>

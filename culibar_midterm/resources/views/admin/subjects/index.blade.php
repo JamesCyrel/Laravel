@@ -28,25 +28,31 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($subjects as $subject)
+                            @if($subjects->isEmpty())
                                 <tr>
-                                    <td>{{ $subject->name }}</td>
-                                    <td>{{ $subject->subject_code }}</td>
-                                    <td>{{ $subject->units }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.subjects.edit', $subject) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        @if($subject->enrollments->isEmpty())
-                                            <form action="{{ route('admin.subjects.destroy', $subject) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                            </form>
-                                        @else
-                                            <button class="btn btn-danger btn-sm" disabled title="Cannot delete subject with existing enrollments">Delete</button>
-                                        @endif
-                                    </td>
+                                    <td colspan="4" class="text-center">No subjects found.</td>
                                 </tr>
-                            @endforeach
+                            @else
+                                @foreach($subjects as $subject)
+                                    <tr>
+                                        <td>{{ $subject->name }}</td>
+                                        <td>{{ $subject->subject_code }}</td>
+                                        <td>{{ $subject->units }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.subjects.edit', $subject) }}" class="btn btn-warning btn-sm">Edit</a>
+                                            @if($subject->enrollments->isEmpty())
+                                                <form action="{{ route('admin.subjects.destroy', $subject) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                </form>
+                                            @else
+                                                <button class="btn btn-danger btn-sm" disabled title="Cannot delete subject with existing enrollments">Delete</button>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

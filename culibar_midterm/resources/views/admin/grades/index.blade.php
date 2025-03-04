@@ -26,31 +26,37 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($grades as $grade)
-                    @php
-                        $enrollment = App\Models\Enrollment::where('student_id', $grade->student_id)
-                            ->where('subject_id', $grade->subject_id)
-                            ->first();
-                    @endphp
+                @if($grades->isEmpty())
                     <tr>
-                        <td>{{ $grade->student->name }}</td>
-                        <td>{{ $enrollment ? $enrollment->course : $grade->student->course }}</td>
-                        <td>{{ $enrollment ? $enrollment->semester : '-' }}</td>
-                        <td>{{ $grade->subject->name }}</td>
-                        <td>{{ $grade->grade }}</td>
-                        <td>{{ $grade->subject->units }}</td>
-                        <td>{{ $grade->remark }}</td>
-                        <td>{{ $grade->curriculum_evaluation }}</td>
-                        <td>
-                            <a href="{{ route('admin.grades.edit', $grade) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('admin.grades.destroy', $grade) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </td>
+                        <td colspan="8" class="text-center">No grades found.</td>
                     </tr>
-                @endforeach
+                @else
+                    @foreach($grades as $grade)
+                        @php
+                            $enrollment = App\Models\Enrollment::where('student_id', $grade->student_id)
+                                ->where('subject_id', $grade->subject_id)
+                                ->first();
+                        @endphp
+                        <tr>
+                            <td>{{ $grade->student->name }}</td>
+                            <td>{{ $enrollment ? $enrollment->course : $grade->student->course }}</td>
+                            <td>{{ $enrollment ? $enrollment->semester : '-' }}</td>
+                            <td>{{ $grade->subject->name }}</td>
+                            <td>{{ $grade->grade }}</td>
+                            <td>{{ $grade->subject->units }}</td>
+                            <td>{{ $grade->remark }}</td>
+                            <td>{{ $grade->curriculum_evaluation }}</td>
+                            <td>
+                                <a href="{{ route('admin.grades.edit', $grade) }}" class="btn btn-warning">Edit</a>
+                                <form action="{{ route('admin.grades.destroy', $grade) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>

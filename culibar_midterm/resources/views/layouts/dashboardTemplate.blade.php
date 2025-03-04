@@ -92,12 +92,12 @@
                 </li>
 
                 <!-- Nav Item - Student Profile -->
-                <li class="nav-item @if(request()->routeIs('profile.edit')) active @endif">
+                <!-- <li class="nav-item @if(request()->routeIs('profile.edit')) active @endif">
                     <a class="nav-link" href="{{ route('profile.edit') }}">
                         <i class="fas fa-fw fa-user"></i>
                         <span>Profile</span>
                     </a>
-                </li>
+                </li> -->
 
                 <!-- Nav Item - View Grades -->
                 <li class="nav-item @if(request()->routeIs('student.view-grades')) active @endif">
