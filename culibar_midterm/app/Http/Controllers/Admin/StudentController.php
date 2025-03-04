@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\User;
+use App\Http\Requests\Student\StudentStoreRequest;
+use App\Http\Requests\Student\StudentUpdateRequest;
 
 class StudentController extends Controller
 {
@@ -27,27 +29,9 @@ class StudentController extends Controller
         return view('admin.students.create', compact('users'));
     }
 
-    public function store(Request $request)
+    public function store(StudentStoreRequest $request)
     {
-        $request->validate([
-            'student_id' => 'required|unique:students',
-            'name' => [
-                'required',
-                function ($attribute, $value, $fail) use ($request) {
-                    $user = User::where('name', $value)
-                                ->where('email', $request->email)
-                                ->where('role', 'student')
-                                ->first();
-                    if (!$user) {
-                        $fail('The name and email must match a registered student user.');
-                    }
-                },
-            ],
-            'email' => 'required|email|unique:students',
-            'course' => 'required|string',
-        ]);
-
-        Student::create($request->all());
+        Student::create($request->validated());
 
         return redirect()->route('admin.students')->with('success', 'Student created successfully.');
     }
@@ -57,15 +41,9 @@ class StudentController extends Controller
         return view('admin.students.edit', compact('student'));
     }
 
-    public function update(Request $request, Student $student)
+    public function update(StudentUpdateRequest $request, Student $student)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:students,email,' . $student->id,
-            'course' => 'required|string',
-        ]);
-
-        $student->update($request->all());
+        $student->update($request->validated());
 
         return redirect()->route('admin.students')->with('success', 'Student updated successfully.');
     }
