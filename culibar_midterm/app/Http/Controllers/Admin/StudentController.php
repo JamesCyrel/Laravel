@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\User;
-use App\Http\Requests\Student\StudentStoreRequest;
-use App\Http\Requests\Student\StudentUpdateRequest;
+use App\Http\Requests\Admin\StudentStoreRequest;
+use App\Http\Requests\Admin\StudentUpdateRequest;
 
 class StudentController extends Controller
 {
