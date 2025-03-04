@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Subject;
+use App\Http\Requests\Admin\StoreSubjectRequest;
+use App\Http\Requests\Admin\UpdateSubjectRequest;
 
 class SubjectController extends Controller
 {
@@ -19,15 +21,9 @@ class SubjectController extends Controller
         return view('admin.subjects.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreSubjectRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255|unique:subjects,name',
-            'subject_code' => 'required|string|max:255|unique:subjects,subject_code',
-            'units' => 'required|integer',
-        ]);
-
-        Subject::create($request->all());
+        Subject::create($request->validated());
 
         return redirect()->route('admin.subjects')->with('success', 'Subject created successfully.');
     }
@@ -37,15 +33,9 @@ class SubjectController extends Controller
         return view('admin.subjects.edit', compact('subject'));
     }
 
-    public function update(Request $request, Subject $subject)
+    public function update(UpdateSubjectRequest $request, Subject $subject)
     {
-        $request->validate([
-            'name' => 'required',
-            'subject_code' => 'required|unique:subjects,subject_code,' . $subject->id,
-            'units' => 'required|integer',
-        ]);
-
-        $subject->update($request->all());
+        $subject->update($request->validated());
 
         return redirect()->route('admin.subjects')->with('success', 'Subject updated successfully.');
     }
