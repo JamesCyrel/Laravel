@@ -37,7 +37,18 @@
             </div>
             <div class="form-group">
                 <label for="grade">Grade</label>
-                <input type="number" step="0.01" class="form-control" id="grade" name="grade" value="{{ $grade->grade }}" required>
+                <select class="form-control" id="grade" name="grade" required>
+                    <option value="">Select Grade</option>
+                    <option value="1.25" {{ $grade->grade == 1.25 ? 'selected' : '' }}>1.25</option>
+                    <option value="1.50" {{ $grade->grade == 1.50 ? 'selected' : '' }}>1.50</option>
+                    <option value="1.75" {{ $grade->grade == 1.75 ? 'selected' : '' }}>1.75</option>
+                    <option value="2.00" {{ $grade->grade == 2.00 ? 'selected' : '' }}>2.00</option>
+                    <option value="2.25" {{ $grade->grade == 2.25 ? 'selected' : '' }}>2.25</option>
+                    <option value="2.50" {{ $grade->grade == 2.50 ? 'selected' : '' }}>2.50</option>
+                    <option value="2.75" {{ $grade->grade == 2.75 ? 'selected' : '' }}>2.75</option>
+                    <option value="3.00" {{ $grade->grade == 3.00 ? 'selected' : '' }}>3.00</option>
+                    <option value="5.00" {{ $grade->grade == 5.00 ? 'selected' : '' }}>5.00</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Update Grade</button>
         </form>

@@ -23,34 +23,7 @@
     </div>
 
     <div class="row">
-        <!-- <div class="col-md-8">
-            <div class="card shadow mb-4">
-                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">My Courses</h5>
-                    <span class="badge badge-light">{{ $enrolledCourses->count() }} Courses</span>
-                </div>
-                <div class="card-body">
-                    @if($enrolledCourses->count() > 0)
-                        <div class="list-group">
-                            @foreach($enrolledCourses as $course)
-                                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <i class="fas fa-book text-primary mr-2"></i>
-                                        {{ $course->name }}
-                                    </div>
-                                    <span class="badge badge-primary badge-pill">Active</span>
-                                </div>
-                            @endforeach
-                        </div>
-                    @else
-                        <div class="text-center py-4">
-                            <i class="fas fa-info-circle fa-3x text-muted mb-3"></i>
-                            <p class="text-muted">You are not enrolled in any courses yet.</p>
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div> -->
+        
 
         <div class="col-md-4">
             <div class="card shadow mb-4">

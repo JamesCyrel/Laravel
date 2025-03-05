@@ -81,7 +81,7 @@
                                         <span class="badge badge-info">{{ $student->course }}</span>
                                     </td>
                                     <td>
-                                        <span class="badge badge-success">{{ $student->year_level }} Year</span>
+                                        <span class="badge badge-success">{{ $student->year_level }}</span>
                                     </td>
                                     <td class="text-center">
                                         <a href="{{ route('admin.students.edit', $student) }}" 

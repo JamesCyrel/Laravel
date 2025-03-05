@@ -13,20 +13,20 @@ class StudentDashboardController extends Controller
     {
         $student = Auth::user();
         
-        // Get enrolled courses through enrollments
-        $enrolledCourses = Enrollment::where('student_id', $student->id)
-                            ->with('subject')
-                            ->get()
-                            ->map(function($enrollment) {
-                                return (object)[
-                                    'id' => $enrollment->subject->id,
-                                    'name' => $enrollment->subject->name
-                                ];
-                            });
+        // // Get enrolled courses through enrollments
+        // $enrolledCourses = Enrollment::where('student_id', $student->id)
+        //                     ->with('subject')
+        //                     ->get()
+        //                     ->map(function($enrollment) {
+        //                         return (object)[
+        //                             'id' => $enrollment->subject->id,
+        //                             'name' => $enrollment->subject->name
+        //                         ];
+        //                     });
 
-        // Get upcoming assignments (placeholder for now)
-        $upcomingAssignments = collect([]);
+        // // Get upcoming assignments (placeholder for now)
+        // $upcomingAssignments = collect([]);
 
-        return view('student.dashboard', compact('enrolledCourses', 'upcomingAssignments'));
+        return view('student.dashboard', compact('student'));
     }
 } 
