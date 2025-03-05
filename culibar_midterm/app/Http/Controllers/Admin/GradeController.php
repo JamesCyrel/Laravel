@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\StoreGradeRequest;
+use App\Http\Requests\Admin\UpdateGradeRequest;
 use App\Models\Grade;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Enrollment;
-use App\Http\Requests\Admin\StoreGradeRequest;
-use App\Http\Requests\Admin\UpdateGradeRequest;
 
 class GradeController extends Controller
 {
@@ -23,9 +22,7 @@ class GradeController extends Controller
     {
         $students = Student::all();
         $subjects = Subject::all();
-        $grades = Grade::all();
-
-        return view('admin.grades.create', compact('students', 'subjects', 'grades'));
+        return view('admin.grades.create', compact('students', 'subjects'));
     }
 
     public function store(StoreGradeRequest $request)
@@ -51,7 +48,6 @@ class GradeController extends Controller
         $data = $request->validated();
         $data['student_name'] = Student::find($data['student_id'])->name;
         $data['subject_name'] = Subject::find($data['subject_id'])->name;
-        $data['grade'] = number_format($data['grade'], 2);
         $data['remark'] = $this->getRemark($data['grade']);
         $data['curriculum_evaluation'] = $data['remark'];
 
@@ -71,7 +67,6 @@ class GradeController extends Controller
     {
         $data = $request->validated();
         $data['subject_name'] = Subject::find($data['subject_id'])->name;
-        $data['grade'] = number_format($data['grade'], 2);
         $data['remark'] = $this->getRemark($data['grade']);
         $data['curriculum_evaluation'] = $data['remark'];
 
